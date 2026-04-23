@@ -121,7 +121,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   const [order, setOrder] = useState<OrderState>(initialOrder)
 
   const addPhoto = (photo: string) => {
-    setOrder((prev) => ({ ...prev, photos: [...prev.photos, photo] }))
+    setOrder((prev) => ({ ...prev, photos: [photo] }))
   }
 
   const removePhoto = (index: number) => {

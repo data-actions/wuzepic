@@ -50,14 +50,14 @@ export function PhotoUpload() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Your Photos</h2>
+          <h2 className="text-lg font-semibold text-foreground">Your Photo</h2>
           <p className="text-sm text-muted-foreground">
-            Select 1-2 photos to frame
+            Select one photo to frame
           </p>
         </div>
         {order.photos.length > 0 && (
           <span className="text-sm font-medium text-primary">
-            {order.photos.length} photo{order.photos.length !== 1 ? 's' : ''} selected
+            Photo selected
           </span>
         )}
       </div>
@@ -72,12 +72,12 @@ export function PhotoUpload() {
 
       {/* Photos Preview */}
       {order.photos.length > 0 ? (
-        <div className={`grid gap-3 ${order.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+        <div className="grid gap-3 grid-cols-1">
           {order.photos.map((photo, index) => (
             <div key={index} className="relative aspect-square overflow-hidden rounded-xl bg-muted">
               <Image
                 src={photo}
-                alt={`Selected photo ${index + 1}`}
+                alt={`Selected photo`}
                 fill
                 className="object-cover"
               />
@@ -108,15 +108,12 @@ export function PhotoUpload() {
       {/* Upload Button */}
       <Button
         onClick={handleUploadClick}
-        disabled={order.photos.length >= 2}
         className="h-12 w-full rounded-xl"
       >
         <ImagePlus className="mr-2 h-5 w-5" />
         {order.photos.length === 0
           ? 'Upload Photo'
-          : order.photos.length === 1
-            ? 'Add Another Photo'
-            : 'Maximum Photos Reached'}
+          : 'Change Photo'}
       </Button>
     </div>
   )

@@ -22,12 +22,8 @@ export function OfficialPhotosGallery() {
   const { order, addPhoto, removePhoto } = useOrder()
 
   const handleSelectPhoto = (photoSrc: string) => {
-    if (order.photos.length < 2) {
-      addPhoto(photoSrc)
-      toast.success('Photo selected')
-    } else {
-      toast.error('Maximum 2 photos allowed')
-    }
+    addPhoto(photoSrc)
+    toast.success('Photo selected')
   }
 
   const handleRemovePhoto = (photoToRemove: string) => {
@@ -44,12 +40,12 @@ export function OfficialPhotosGallery() {
         <div>
           <h2 className="text-lg font-semibold text-foreground">Official Game Photos</h2>
           <p className="text-sm text-muted-foreground">
-            Select 1-2 official images for your frame
+            Select one official image for your frame
           </p>
         </div>
         {order.photos.length > 0 && (
           <span className="text-sm font-medium text-primary">
-            {order.photos.length} photo{order.photos.length !== 1 ? 's' : ''} selected
+            Photo selected
           </span>
         )}
       </div>
@@ -102,8 +98,8 @@ export function OfficialPhotosGallery() {
 
       {order.photos.length > 0 && (
         <div className="mt-4 flex flex-col gap-2">
-          <p className="text-sm font-medium text-foreground">Selected Photos ({order.photos.length}):</p>
-          <div className={`grid gap-2 ${order.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          <p className="text-sm font-medium text-foreground">Selected Photo:</p>
+          <div className="grid gap-2 grid-cols-1">
             {order.photos.map((photo, index) => (
               <div key={index} className="relative aspect-video overflow-hidden rounded-lg bg-muted group">
                 <Image
