@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { toast } from 'sonner'
 
 export function PhotoUpload() {
-  const { order, setPhoto } = useOrder()
+  const { order, addPhoto, removePhoto } = useOrder()
   const inputRef = useRef<HTMLInputElement>(null)
 
   const handleFileChange = useCallback(
@@ -29,7 +29,7 @@ export function PhotoUpload() {
       const reader = new FileReader()
       reader.onload = (event) => {
         const result = event.target?.result as string
-        setPhoto(result)
+        addPhoto(result)
         toast.success('Photo uploaded successfully')
       }
       reader.readAsDataURL(file)
@@ -39,7 +39,7 @@ export function PhotoUpload() {
         inputRef.current.value = ''
       }
     },
-    [setPhoto]
+    [addPhoto]
   )
 
   const handleUploadClick = () => {
@@ -50,14 +50,14 @@ export function PhotoUpload() {
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-foreground">Your Photo</h2>
+          <h2 className="text-lg font-semibold text-foreground">Your Photos</h2>
           <p className="text-sm text-muted-foreground">
-            Select one photo to frame
+            Select 1-2 photos to frame
           </p>
         </div>
-        {order.photo && (
+        {order.photos.length > 0 && (
           <span className="text-sm font-medium text-primary">
-            Photo selected
+            {order.photos.length} photo{order.photos.length !== 1 ? 's' : ''} selected
           </span>
         )}
       </div>
@@ -70,22 +70,26 @@ export function PhotoUpload() {
         className="hidden"
       />
 
-      {/* Photo Preview */}
-      {order.photo ? (
-        <div className="relative aspect-square overflow-hidden rounded-xl bg-muted">
-          <Image
-            src={order.photo}
-            alt="Selected photo"
-            fill
-            className="object-cover"
-          />
-          <button
-            onClick={() => setPhoto(null)}
-            className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background transition-colors hover:bg-foreground"
-            aria-label="Remove photo"
-          >
-            <X className="h-4 w-4" />
-          </button>
+      {/* Photos Preview */}
+      {order.photos.length > 0 ? (
+        <div className={`grid gap-3 ${order.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+          {order.photos.map((photo, index) => (
+            <div key={index} className="relative aspect-square overflow-hidden rounded-xl bg-muted">
+              <Image
+                src={photo}
+                alt={`Selected photo ${index + 1}`}
+                fill
+                className="object-cover"
+              />
+              <button
+                onClick={() => removePhoto(index)}
+                className="absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full bg-foreground/80 text-background transition-colors hover:bg-foreground"
+                aria-label="Remove photo"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+          ))}
         </div>
       ) : (
         <button
@@ -104,10 +108,15 @@ export function PhotoUpload() {
       {/* Upload Button */}
       <Button
         onClick={handleUploadClick}
+        disabled={order.photos.length >= 2}
         className="h-12 w-full rounded-xl"
       >
         <ImagePlus className="mr-2 h-5 w-5" />
-        {order.photo ? 'Change Photo' : 'Upload Photo'}
+        {order.photos.length === 0
+          ? 'Upload Photo'
+          : order.photos.length === 1
+            ? 'Add Another Photo'
+            : 'Maximum Photos Reached'}
       </Button>
     </div>
   )

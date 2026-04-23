@@ -19,16 +19,23 @@ const officialPhotos = [
 ]
 
 export function OfficialPhotosGallery() {
-  const { order, setPhoto } = useOrder()
+  const { order, addPhoto, removePhoto } = useOrder()
 
   const handleSelectPhoto = (photoSrc: string) => {
-    setPhoto(photoSrc)
-    toast.success('Photo selected')
+    if (order.photos.length < 2) {
+      addPhoto(photoSrc)
+      toast.success('Photo selected')
+    } else {
+      toast.error('Maximum 2 photos allowed')
+    }
   }
 
-  const handleRemovePhoto = () => {
-    setPhoto(null)
-    toast.success('Photo removed')
+  const handleRemovePhoto = (photoToRemove: string) => {
+    const index = order.photos.indexOf(photoToRemove)
+    if (index > -1) {
+      removePhoto(index)
+      toast.success('Photo removed')
+    }
   }
 
   return (
@@ -37,12 +44,12 @@ export function OfficialPhotosGallery() {
         <div>
           <h2 className="text-lg font-semibold text-foreground">Official Game Photos</h2>
           <p className="text-sm text-muted-foreground">
-            Select one official image for your frame
+            Select 1-2 official images for your frame
           </p>
         </div>
-        {order.photo && (
+        {order.photos.length > 0 && (
           <span className="text-sm font-medium text-primary">
-            Photo selected
+            {order.photos.length} photo{order.photos.length !== 1 ? 's' : ''} selected
           </span>
         )}
       </div>
@@ -50,7 +57,7 @@ export function OfficialPhotosGallery() {
       {/* Gallery Grid */}
       <div className="grid grid-cols-2 gap-3">
         {officialPhotos.map((photo) => {
-          const isSelected = order.photo === photo.src
+          const isSelected = order.photos.includes(photo.src)
           return (
             <div
               key={photo.id}
@@ -76,7 +83,7 @@ export function OfficialPhotosGallery() {
                   checked={isSelected}
                   onCheckedChange={() =>
                     isSelected
-                      ? handleRemovePhoto()
+                      ? handleRemovePhoto(photo.src)
                       : handleSelectPhoto(photo.src)
                   }
                   className="h-5 w-5 cursor-pointer border-2 border-white bg-transparent"
@@ -93,25 +100,30 @@ export function OfficialPhotosGallery() {
         })}
       </div>
 
-      {order.photo && (
+      {order.photos.length > 0 && (
         <div className="mt-4 flex flex-col gap-2">
-          <p className="text-sm font-medium text-foreground">Selected Photo:</p>
-          <div className="relative aspect-video overflow-hidden rounded-lg bg-muted">
-            <Image
-              src={order.photo}
-              alt="Selected official photo"
-              fill
-              className="object-cover"
-            />
+          <p className="text-sm font-medium text-foreground">Selected Photos ({order.photos.length}):</p>
+          <div className={`grid gap-2 ${order.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+            {order.photos.map((photo, index) => (
+              <div key={index} className="relative aspect-video overflow-hidden rounded-lg bg-muted group">
+                <Image
+                  src={photo}
+                  alt="Selected official photo"
+                  fill
+                  className="object-cover"
+                />
+                <button
+                  onClick={() => {
+                    const index = order.photos.indexOf(photo)
+                    if (index > -1) removePhoto(index)
+                  }}
+                  className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100"
+                >
+                  <X className="h-6 w-6 text-white" />
+                </button>
+              </div>
+            ))}
           </div>
-          <Button
-            variant="outline"
-            onClick={handleRemovePhoto}
-            className="w-full"
-          >
-            <X className="mr-2 h-4 w-4" />
-            Change Selection
-          </Button>
         </div>
       )}
     </div>

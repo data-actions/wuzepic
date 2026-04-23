@@ -5,12 +5,11 @@ import { Button } from '@/components/ui/button'
 import { Upload, Image as ImageIcon } from 'lucide-react'
 
 export function PhotoSourceSelector() {
-  const { order, setPhotoSource, setPhotos } = useOrder()
+  const { order, setPhotoSource } = useOrder()
 
   const handleSourceChange = (source: PhotoSource) => {
     setPhotoSource(source)
-    // Clear existing photos when switching sources
-    setPhotos([])
+    // setPhotoSource already clears photos when switching sources
   }
 
   return (
