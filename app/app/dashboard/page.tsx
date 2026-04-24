@@ -189,7 +189,7 @@ export default function DashboardPage() {
                   </p>
                 </div>
               </div>
-              <Link href="/app/checkout" className="inline-block">
+              <Link href="/app/fan-club" className="inline-block">
                 <Button variant="outline" className="rounded-xl">
                   Upgrade to Fan-Club
                   <ArrowRight className="ml-2 h-4 w-4" />
