@@ -59,7 +59,7 @@ export const frameOptions: FrameOption[] = [
 export type PhotoSource = 'personal' | 'official'
 
 export interface OrderState {
-  photo: string | null
+  photos: string[]
   photoSource: PhotoSource
   selectedFrame: FrameStyle | null
   logoUpload: string | null
@@ -80,7 +80,8 @@ export interface OrderState {
 
 interface OrderContextType {
   order: OrderState
-  setPhoto: (photo: string | null) => void
+  addPhoto: (photo: string) => void
+  removePhoto: (index: number) => void
   setPhotoSource: (source: PhotoSource) => void
   setSelectedFrame: (frame: FrameStyle | null) => void
   setLogoUpload: (logo: string | null) => void
@@ -95,7 +96,7 @@ interface OrderContextType {
 }
 
 const initialOrder: OrderState = {
-  photo: null,
+  photos: [],
   photoSource: 'personal',
   selectedFrame: null,
   logoUpload: null,
@@ -119,12 +120,19 @@ const OrderContext = createContext<OrderContextType | undefined>(undefined)
 export function OrderProvider({ children }: { children: ReactNode }) {
   const [order, setOrder] = useState<OrderState>(initialOrder)
 
-  const setPhoto = (photo: string | null) => {
-    setOrder((prev) => ({ ...prev, photo }))
+  const addPhoto = (photo: string) => {
+    setOrder((prev) => ({ ...prev, photos: [photo] }))
+  }
+
+  const removePhoto = (index: number) => {
+    setOrder((prev) => ({
+      ...prev,
+      photos: prev.photos.filter((_, i) => i !== index),
+    }))
   }
 
   const setPhotoSource = (source: PhotoSource) => {
-    setOrder((prev) => ({ ...prev, photoSource: source, photo: null }))
+    setOrder((prev) => ({ ...prev, photoSource: source, photos: [] }))
   }
 
   const setSelectedFrame = (frame: FrameStyle | null) => {
@@ -174,7 +182,8 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     <OrderContext.Provider
       value={{
         order,
-        setPhoto,
+        addPhoto,
+        removePhoto,
         setPhotoSource,
         setSelectedFrame,
         setLogoUpload,

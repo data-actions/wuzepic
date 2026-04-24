@@ -38,8 +38,8 @@ export function FramePreview() {
         )}
       </div>
 
-      <div className={`grid gap-4 ${order.photos.length === 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
-        {order.photos.map((photo, index) => (
+      {/* Single photo layout - no grid */}
+      {order.photos.map((photo, index) => (
           <div
             key={index}
             className="relative mx-auto w-full max-w-[280px]"
@@ -73,20 +73,27 @@ export function FramePreview() {
                     alt={`Framed photo ${index + 1}`}
                     fill
                     className="object-cover"
+                    style={{
+                      transform: `scale(${order.photoScale})`,
+                      transformOrigin: 'center',
+                    }}
                   />
                 </div>
 
-                {/* Mat Bottom Section with Logo and Text */}
-                <div className="flex items-center justify-between gap-1 bg-white px-2 py-3 flex-shrink-0">
+                {/* Mat Bottom Section with Logo and Text - Using CSS Grid */}
+                <div 
+                  className="grid auto-cols-fr items-center gap-1 bg-white px-2 py-3 flex-shrink-0"
+                  style={{
+                    gridTemplateColumns: '1fr auto 1fr',
+                  }}
+                >
                   {/* Left Text */}
-                  {order.textLeft && (
-                    <span className="flex-1 text-left text-[7px] font-semibold text-foreground leading-tight line-clamp-2">
-                      {order.textLeft}
-                    </span>
-                  )}
+                  <span className="text-left text-[7px] font-semibold text-foreground leading-tight line-clamp-2">
+                    {order.textLeft || ''}
+                  </span>
 
-                  {/* Logo */}
-                  <div className="relative h-5 w-5 flex-shrink-0 overflow-hidden mx-1">
+                  {/* Logo - Always centered */}
+                  <div className="relative h-5 w-5 flex-shrink-0 overflow-hidden">
                     <Image
                       src={BANANA_BALL_LOGO}
                       alt="Banana Ball logo"
@@ -96,24 +103,14 @@ export function FramePreview() {
                   </div>
 
                   {/* Right Text */}
-                  {order.textRight && (
-                    <span className="flex-1 text-right text-[7px] font-semibold text-foreground leading-tight line-clamp-2">
-                      {order.textRight}
-                    </span>
-                  )}
+                  <span className="text-right text-[7px] font-semibold text-foreground leading-tight line-clamp-2">
+                    {order.textRight || ''}
+                  </span>
                 </div>
               </div>
             </div>
-
-            {/* Frame Label */}
-            {order.photos.length === 2 && (
-              <p className="mt-2 text-center text-xs text-muted-foreground">
-                Photo {index + 1}
-              </p>
-            )}
           </div>
         ))}
-      </div>
 
       {!selectedFrame && (
         <p className="text-center text-sm text-muted-foreground">

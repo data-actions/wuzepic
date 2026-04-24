@@ -4,14 +4,14 @@ import { useRef } from 'react'
 import { useOrder } from '@/lib/order-context'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Type } from 'lucide-react'
+import { Type, ZoomIn } from 'lucide-react'
 import Image from 'next/image'
 
 const BANANA_BALL_LOGO = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BBallStillFrame_01-uOaswpUYKRo4SI4LnJp1Nyd36VnuuI.png'
 const MAX_TEXT_LENGTH = 30
 
 export function FrameCustomization() {
-  const { order, setTextLeft, setTextRight } = useOrder()
+  const { order, setTextLeft, setTextRight, setPhotoScale } = useOrder()
 
   return (
     <div className="flex flex-col gap-6">
@@ -20,6 +20,43 @@ export function FrameCustomization() {
         <p className="text-sm text-muted-foreground">
           Add optional text messages to personalize your frame mat
         </p>
+      </div>
+
+      {/* Logo Preview Section */}
+      <div className="flex flex-col gap-3">
+        <Label className="text-base font-semibold text-foreground">Image Resizing</Label>
+        <div className="flex flex-col gap-3">
+          <p className="text-sm text-muted-foreground">
+            Adjust the photo size to fit better in your frame while maintaining aspect ratio
+          </p>
+          {order.photos.length > 0 ? (
+            <div className="flex flex-col gap-3">
+              <div className="flex items-center gap-4">
+                <ZoomIn className="h-5 w-5 text-primary flex-shrink-0" />
+                <input
+                  type="range"
+                  min="0.5"
+                  max="1.5"
+                  step="0.05"
+                  value={order.photoScale}
+                  onChange={(e) => setPhotoScale(parseFloat(e.target.value))}
+                  className="flex-1 h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                />
+                <span className="text-sm font-semibold text-foreground w-12 text-right">
+                  {Math.round(order.photoScale * 100)}%
+                </span>
+              </div>
+              <div className="flex justify-between text-xs text-muted-foreground">
+                <span>50% (Zoomed out)</span>
+                <span>150% (Zoomed in)</span>
+              </div>
+            </div>
+          ) : (
+            <p className="text-xs text-muted-foreground italic">
+              Upload a photo to enable resizing
+            </p>
+          )}
+        </div>
       </div>
 
       {/* Logo Preview Section */}
@@ -98,11 +135,16 @@ export function FrameCustomization() {
       {/* Preview of Mat Customization */}
       <div className="mt-4 rounded-lg border border-border bg-muted/50 p-4">
         <p className="mb-3 text-sm font-medium text-foreground">Mat Preview</p>
-        <div className="flex items-center justify-between rounded-lg bg-background px-6 py-8">
-          <span className="flex-1 text-left text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
+        <div 
+          className="grid items-center rounded-lg bg-background px-6 py-8"
+          style={{
+            gridTemplateColumns: '1fr auto 1fr',
+          }}
+        >
+          <span className="text-left text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
             {order.textLeft || '—'}
           </span>
-          <div className="relative h-14 w-14 flex-shrink-0 mx-3 overflow-hidden">
+          <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden">
             <Image
               src={BANANA_BALL_LOGO}
               alt="Banana Ball logo preview"
@@ -110,7 +152,7 @@ export function FrameCustomization() {
               className="object-contain"
             />
           </div>
-          <span className="flex-1 text-right text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
+          <span className="text-right text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
             {order.textRight || '—'}
           </span>
         </div>
