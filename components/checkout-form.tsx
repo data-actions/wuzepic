@@ -5,10 +5,11 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Switch } from '@/components/ui/switch'
+import { FanClubOption } from '@/components/fan-club-option'
 import { Gift, Truck, CreditCard } from 'lucide-react'
 
 export function CheckoutForm() {
-  const { order, setShipping, setGiftWrap, setGiftMessage } = useOrder()
+  const { order, setShipping, setGiftWrap, setGiftMessage, setFanClubSignup } = useOrder()
 
   const updateShipping = (field: keyof typeof order.shipping, value: string) => {
     setShipping({ ...order.shipping, [field]: value })
@@ -157,6 +158,14 @@ export function CheckoutForm() {
             </div>
           )}
         </div>
+      </section>
+
+      {/* Fan-Club Membership Section */}
+      <section className="flex flex-col gap-4">
+        <FanClubOption 
+          isSelected={order.fanClubSignup}
+          onToggle={setFanClubSignup}
+        />
       </section>
 
       {/* Payment Section */}

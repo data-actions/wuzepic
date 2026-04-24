@@ -4,6 +4,7 @@ import { createClient } from '@/lib/supabase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { FanClubSignup } from '@/components/fan-club-signup'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -13,6 +14,7 @@ export default function SignUpPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [fanClubSignup, setFanClubSignup] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
@@ -46,7 +48,14 @@ export default function SignUpPage() {
         },
       })
       if (error) throw error
-      router.push('/auth/sign-up-success')
+      
+      // Store fan club preference for next page
+      if (fanClubSignup) {
+        sessionStorage.setItem('pendingFanClubSignup', 'true')
+        router.push('/auth/fan-club-payment')
+      } else {
+        router.push('/auth/sign-up-success')
+      }
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -66,7 +75,6 @@ export default function SignUpPage() {
         </Link>
       </header>
 
-      {/* Main Content */}
       <main className="flex flex-1 flex-col items-center justify-center px-6 pb-12">
         <div className="w-full max-w-sm">
           <div className="mb-8 text-center">
@@ -128,6 +136,14 @@ export default function SignUpPage() {
               </div>
             )}
 
+            {/* Fan-Club Signup Section */}
+            <div className="border-t border-border pt-5">
+              <FanClubSignup 
+                isSelected={fanClubSignup}
+                onToggle={setFanClubSignup}
+              />
+            </div>
+
             <Button 
               type="submit" 
               className="h-12 w-full rounded-xl text-base font-semibold"
@@ -138,6 +154,8 @@ export default function SignUpPage() {
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                   Creating account...
                 </>
+              ) : fanClubSignup ? (
+                'Create account & Continue to Payment'
               ) : (
                 'Create account'
               )}
