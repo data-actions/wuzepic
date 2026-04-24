@@ -8,7 +8,7 @@ import { FanClubSignup } from '@/components/fan-club-signup'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { Frame, Loader2 } from 'lucide-react'
+import { Wand2, Loader2 } from 'lucide-react'
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('')
@@ -69,9 +69,9 @@ export default function SignUpPage() {
       <header className="flex items-center justify-center p-6">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-            <Frame className="h-5 w-5 text-primary-foreground" />
+            <Wand2 className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-semibold text-foreground">FrameIt</span>
+          <span className="text-xl font-semibold text-foreground">WuzEpic</span>
         </Link>
       </header>
 
@@ -80,7 +80,7 @@ export default function SignUpPage() {
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold text-foreground">Create account</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Start framing your favorite memories today
+              Start creating beautiful frames with WuzEpic
             </p>
           </div>
 

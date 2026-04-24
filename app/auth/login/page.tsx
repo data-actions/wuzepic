@@ -7,7 +7,7 @@ import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { Frame, Loader2 } from 'lucide-react'
+import { Wand2, Loader2 } from 'lucide-react'
 
 export default function LoginPage() {
   const [email, setEmail] = useState('')
@@ -28,7 +28,7 @@ export default function LoginPage() {
         password,
       })
       if (error) throw error
-      router.push('/app')
+      router.push('/app/dashboard')
     } catch (error: unknown) {
       setError(error instanceof Error ? error.message : 'An error occurred')
     } finally {
@@ -42,9 +42,9 @@ export default function LoginPage() {
       <header className="flex items-center justify-center p-6">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-            <Frame className="h-5 w-5 text-primary-foreground" />
+            <Wand2 className="h-5 w-5 text-primary-foreground" />
           </div>
-          <span className="text-xl font-semibold text-foreground">FrameIt</span>
+          <span className="text-xl font-semibold text-foreground">WuzEpic</span>
         </Link>
       </header>
 
@@ -54,7 +54,7 @@ export default function LoginPage() {
           <div className="mb-8 text-center">
             <h1 className="text-2xl font-bold text-foreground">Welcome back</h1>
             <p className="mt-2 text-sm text-muted-foreground">
-              Sign in to continue creating beautiful framed photos
+              Sign in to WuzEpic and start creating beautiful frames
             </p>
           </div>
 
