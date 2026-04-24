@@ -76,6 +76,7 @@ export interface OrderState {
   }
   giftWrap: boolean
   giftMessage: string
+  fanClubSignup: boolean
 }
 
 interface OrderContextType {
@@ -91,6 +92,7 @@ interface OrderContextType {
   setShipping: (shipping: OrderState['shipping']) => void
   setGiftWrap: (giftWrap: boolean) => void
   setGiftMessage: (message: string) => void
+  setFanClubSignup: (signup: boolean) => void
   resetOrder: () => void
   getTotalPrice: () => number
 }
@@ -113,6 +115,7 @@ const initialOrder: OrderState = {
   },
   giftWrap: false,
   giftMessage: '',
+  fanClubSignup: false,
 }
 
 const OrderContext = createContext<OrderContextType | undefined>(undefined)
@@ -167,6 +170,10 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setOrder((prev) => ({ ...prev, giftMessage: message }))
   }
 
+  const setFanClubSignup = (signup: boolean) => {
+    setOrder((prev) => ({ ...prev, fanClubSignup: signup }))
+  }
+
   const resetOrder = () => {
     setOrder(initialOrder)
   }
@@ -175,7 +182,8 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     const frame = frameOptions.find((f) => f.id === order.selectedFrame)
     const framePrice = frame ? frame.price : 0
     const giftWrapPrice = order.giftWrap ? 5.99 : 0
-    return framePrice + giftWrapPrice
+    const fanClubPrice = order.fanClubSignup ? 99.0 : 0
+    return framePrice + giftWrapPrice + fanClubPrice
   }
 
   return (
@@ -193,6 +201,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         setShipping,
         setGiftWrap,
         setGiftMessage,
+        setFanClubSignup,
         resetOrder,
         getTotalPrice,
       }}

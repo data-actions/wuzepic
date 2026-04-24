@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
-import { Frame, Upload, Image as ImageIcon, Package, ArrowRight, Star } from 'lucide-react'
+import { Wand2, Upload, Image as ImageIcon, Package, ArrowRight, Star } from 'lucide-react'
 
 const frames = [
   { color: '#1a1a1a', name: 'Classic Black' },
@@ -36,9 +36,9 @@ export default function HomePage() {
         <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
           <div className="flex items-center gap-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <Frame className="h-4 w-4 text-primary-foreground" />
+              <Wand2 className="h-4 w-4 text-primary-foreground" />
             </div>
-            <span className="font-semibold text-foreground">FrameIt</span>
+            <span className="font-semibold text-foreground">WuzEpic</span>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
@@ -112,7 +112,7 @@ export default function HomePage() {
                   description: 'Choose up to 2 of your favorite photos',
                 },
                 {
-                  icon: Frame,
+                  icon: Wand2,
                   title: 'Pick Your Frame',
                   description: 'Select from 5 premium frame styles',
                 },
@@ -213,12 +213,12 @@ export default function HomePage() {
         <div className="mx-auto max-w-lg">
           <div className="flex items-center justify-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary">
-              <Frame className="h-3 w-3 text-primary-foreground" />
+              <Wand2 className="h-3 w-3 text-primary-foreground" />
             </div>
-            <span className="text-sm font-medium text-muted-foreground">FrameIt</span>
+            <span className="text-sm font-medium text-muted-foreground">WuzEpic</span>
           </div>
           <p className="mt-4 text-center text-xs text-muted-foreground">
-            2024 FrameIt. All rights reserved.
+            2024 WuzEpic. All rights reserved.
           </p>
         </div>
       </footer>

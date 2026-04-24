@@ -2,7 +2,7 @@
 
 import { useOrder, frameOptions } from '@/lib/order-context'
 import Image from 'next/image'
-import { Package, Gift, Truck } from 'lucide-react'
+import { Package, Gift, Truck, Crown } from 'lucide-react'
 
 export function OrderSummary() {
   const { order, getTotalPrice } = useOrder()
@@ -10,6 +10,7 @@ export function OrderSummary() {
   const selectedFrame = frameOptions.find((f) => f.id === order.selectedFrame)
   const subtotal = selectedFrame ? selectedFrame.price * order.photos.length : 0
   const giftWrapCost = order.giftWrap ? 5.99 : 0
+  const fanClubCost = order.fanClubSignup ? 99.0 : 0
   const shipping = 0 // Free shipping
   const total = getTotalPrice()
 
@@ -79,6 +80,16 @@ export function OrderSummary() {
                 Gift Wrapping
               </span>
               <span className="text-foreground">${giftWrapCost.toFixed(2)}</span>
+            </div>
+          )}
+
+          {order.fanClubSignup && (
+            <div className="flex items-center justify-between">
+              <span className="flex items-center gap-1 text-muted-foreground">
+                <Crown className="h-4 w-4" />
+                Fan-Club Membership
+              </span>
+              <span className="text-foreground">${fanClubCost.toFixed(2)}</span>
             </div>
           )}
 

@@ -14,7 +14,19 @@ function Checkbox({
     <CheckboxPrimitive.Root
       data-slot="checkbox"
       className={cn(
-        'peer border-input dark:bg-input/30 data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground dark:data-[state=checked]:bg-primary data-[state=checked]:border-primary focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive size-4 shrink-0 rounded-[4px] border shadow-xs transition-shadow outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50',
+        'peer size-4 shrink-0 rounded-[4px] border-2 transition-all outline-none',
+        // Unchecked state - enhanced visibility
+        'border-muted-foreground/40 bg-card hover:border-muted-foreground/60',
+        // Checked state
+        'data-[state=checked]:bg-primary data-[state=checked]:border-primary data-[state=checked]:text-primary-foreground',
+        // Focus state
+        'focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-primary',
+        // Disabled state - more visible
+        'disabled:opacity-60 disabled:cursor-not-allowed disabled:bg-muted disabled:border-muted-foreground/20',
+        // Dark mode enhancements
+        'dark:border-muted-foreground/50 dark:bg-card dark:hover:border-muted-foreground/70',
+        'dark:data-[state=checked]:bg-primary dark:data-[state=checked]:border-primary',
+        'dark:disabled:bg-muted/50',
         className,
       )}
       {...props}

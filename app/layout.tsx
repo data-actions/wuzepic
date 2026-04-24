@@ -10,8 +10,8 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'FrameIt - Custom Photo Frames',
-  description: 'Upload your photos, choose beautiful frames, and order custom framed prints delivered to your door.',
+  title: 'WuzEpic - Custom Photo Frames',
+  description: 'Upload your photos, choose beautiful frames, and order custom framed prints. Create stunning memories with WuzEpic.',
   generator: 'v0.app',
 }
 
