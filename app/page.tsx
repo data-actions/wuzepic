@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Upload, Image as ImageIcon, Package, ArrowRight, Star } from 'lucide-react'
+import { Upload, Image as ImageIcon, Package, ArrowRight, Star, Palette } from 'lucide-react'
 
 const frames = [
   { color: '#1a1a1a', name: 'Classic Black' },
@@ -117,7 +117,7 @@ export default function HomePage() {
                   description: 'Choose up to 2 of your favorite photos',
                 },
                 {
-                  icon: Wand2,
+                  icon: Palette,
                   title: 'Pick Your Frame',
                   description: 'Select from 5 premium frame styles',
                 },
