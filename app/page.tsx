@@ -1,6 +1,7 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Button } from '@/components/ui/button'
-import { Wand2, Upload, Image as ImageIcon, Package, ArrowRight, Star } from 'lucide-react'
+import { Upload, Image as ImageIcon, Package, ArrowRight, Star, Palette } from 'lucide-react'
 
 const frames = [
   { color: '#1a1a1a', name: 'Classic Black' },
@@ -35,9 +36,13 @@ export default function HomePage() {
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
           <div className="flex items-center gap-2">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
-              <Wand2 className="h-4 w-4 text-primary-foreground" />
-            </div>
+            <Image 
+              src="/white background logo.jpg" 
+              alt="WuzEpic" 
+              width={32} 
+              height={32}
+              className="h-8 w-8 rounded-lg object-cover"
+            />
             <span className="font-semibold text-foreground">WuzEpic</span>
           </div>
           <div className="flex items-center gap-2">
@@ -112,7 +117,7 @@ export default function HomePage() {
                   description: 'Choose up to 2 of your favorite photos',
                 },
                 {
-                  icon: Wand2,
+                  icon: Palette,
                   title: 'Pick Your Frame',
                   description: 'Select from 5 premium frame styles',
                 },
@@ -212,9 +217,13 @@ export default function HomePage() {
       <footer className="border-t border-border px-4 py-8">
         <div className="mx-auto max-w-lg">
           <div className="flex items-center justify-center gap-2">
-            <div className="flex h-6 w-6 items-center justify-center rounded-md bg-primary">
-              <Wand2 className="h-3 w-3 text-primary-foreground" />
-            </div>
+            <Image 
+              src="/white background logo.jpg" 
+              alt="WuzEpic" 
+              width={24} 
+              height={24}
+              className="h-6 w-6 rounded-md object-cover"
+            />
             <span className="text-sm font-medium text-muted-foreground">WuzEpic</span>
           </div>
           <p className="mt-4 text-center text-xs text-muted-foreground">
