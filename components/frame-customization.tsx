@@ -107,14 +107,6 @@ export function FrameCustomization() {
             />
           </PopoverContent>
         </Popover>
-        {order.selectedDate && (
-          <div className="flex items-center gap-2 rounded-md bg-muted p-3">
-            <CalendarIcon className="h-4 w-4 text-muted-foreground flex-shrink-0" />
-            <span className="text-sm font-medium text-foreground">
-              Selected: {format(order.selectedDate, "do MMMM yyyy")}
-            </span>
-          </div>
-        )}
       </div>
 
       {/* Caption Input */}
