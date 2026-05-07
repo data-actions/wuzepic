@@ -134,7 +134,7 @@ export function FrameCustomization() {
 
       {/* Preview of Mat Customization */}
       <div className="mt-4 rounded-lg border border-border bg-muted/50 p-4">
-        <p className="mb-3 text-sm font-medium text-foreground">Mat Preview</p>
+        <p className="mb-3 text-sm font-medium text-foreground">Matte Preview</p>
         <div 
           className="grid items-center rounded-lg bg-background px-6 py-8"
           style={{
