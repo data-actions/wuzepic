@@ -16,9 +16,27 @@ export interface FrameOption {
   id: FrameColor
   name: string
   category: 'Standard' | 'Premium'
-  price: number
   color: string
   borderWidth: number
+}
+
+export interface FramePricing {
+  small: number
+  medium: number
+  large: number
+}
+
+export const framePricing: Record<'standard' | 'premium', FramePricing> = {
+  standard: {
+    small: 19.99,
+    medium: 29.99,
+    large: 39.99,
+  },
+  premium: {
+    small: 39.99,
+    medium: 49.99,
+    large: 59.99,
+  },
 }
 
 export const frameSizeOptions: FrameSizeOption[] = [
@@ -44,7 +62,6 @@ export const frameOptions: FrameOption[] = [
     id: 'classic-black',
     name: 'Classic Black',
     category: 'Standard',
-    price: 29.99,
     color: '#1a1a1a',
     borderWidth: 16,
   },
@@ -52,7 +69,6 @@ export const frameOptions: FrameOption[] = [
     id: 'natural-oak',
     name: 'Natural Oak',
     category: 'Standard',
-    price: 29.99,
     color: '#c4a574',
     borderWidth: 20,
   },
@@ -60,7 +76,6 @@ export const frameOptions: FrameOption[] = [
     id: 'elegant-white',
     name: 'Elegant White',
     category: 'Standard',
-    price: 29.99,
     color: '#f5f5f5',
     borderWidth: 16,
   },
@@ -68,7 +83,6 @@ export const frameOptions: FrameOption[] = [
     id: 'premium-yellow',
     name: 'Premium Yellow',
     category: 'Premium',
-    price: 49.99,
     color: '#fecf08',
     borderWidth: 24,
   },
@@ -76,7 +90,6 @@ export const frameOptions: FrameOption[] = [
     id: 'premium-blue',
     name: 'Premium Blue',
     category: 'Premium',
-    price: 49.99,
     color: '#172651',
     borderWidth: 24,
   },
@@ -212,8 +225,14 @@ export function OrderProvider({ children }: { children: ReactNode }) {
   }
 
   const getTotalPrice = () => {
-    const frame = frameOptions.find((f) => f.id === order.selectedFrame)
-    const framePrice = frame ? frame.price : 0
+    let framePrice = 0
+    
+    if (order.selectedFrame && order.selectedFrameSize) {
+      const frame = frameOptions.find((f) => f.id === order.selectedFrame)
+      const category = frame?.category === 'Premium' ? 'premium' : 'standard'
+      framePrice = framePricing[category][order.selectedFrameSize]
+    }
+    
     const giftWrapPrice = order.giftWrap ? 5.99 : 0
     const fanClubPrice = order.fanClubSignup ? 99.0 : 0
     return framePrice + giftWrapPrice + fanClubPrice

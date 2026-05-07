@@ -1,6 +1,6 @@
 'use client'
 
-import { useOrder, frameOptions, frameSizeOptions, type FrameStyle } from '@/lib/order-context'
+import { useOrder, frameOptions, frameSizeOptions, framePricing, type FrameStyle } from '@/lib/order-context'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -10,6 +10,13 @@ export function FrameSelector() {
   // Group frames by category
   const standardFrames = frameOptions.filter((f) => f.category === 'Standard')
   const premiumFrames = frameOptions.filter((f) => f.category === 'Premium')
+
+  // Helper function to get frame price
+  const getFramePrice = (category: 'Standard' | 'Premium'): string => {
+    if (!order.selectedFrameSize) return 'TBD'
+    const categoryKey = category === 'Premium' ? 'premium' : 'standard'
+    return `$${framePricing[categoryKey][order.selectedFrameSize].toFixed(2)}`
+  }
 
   return (
     <div className="flex flex-col gap-6">
@@ -49,7 +56,7 @@ export function FrameSelector() {
         {/* Standard Frames */}
         <div className="flex flex-col gap-2">
           <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-            Standard - $29.99
+            Standard - {getFramePrice('Standard')}
           </span>
           <div className="flex flex-col gap-2">
             {standardFrames.map((frame) => (
@@ -98,7 +105,7 @@ export function FrameSelector() {
         {/* Premium Frames */}
         <div className="flex flex-col gap-2">
           <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-            Premium - $49.99
+            Premium - {getFramePrice('Premium')}
           </span>
           <div className="flex flex-col gap-2">
             {premiumFrames.map((frame) => (
