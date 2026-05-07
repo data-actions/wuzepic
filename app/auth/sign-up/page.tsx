@@ -6,9 +6,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { FanClubSignup } from '@/components/fan-club-signup'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
-import { Wand2, Loader2 } from 'lucide-react'
+import { Loader2 } from 'lucide-react'
 
 export default function SignUpPage() {
   const [email, setEmail] = useState('')
@@ -68,9 +69,13 @@ export default function SignUpPage() {
       {/* Header */}
       <header className="flex items-center justify-center p-6">
         <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-            <Wand2 className="h-5 w-5 text-primary-foreground" />
-          </div>
+          <Image 
+            src="/white background logo.jpg" 
+            alt="WuzEpic" 
+            width={40} 
+            height={40}
+            className="h-10 w-10 rounded-xl object-cover"
+          />
           <span className="text-xl font-semibold text-foreground">WuzEpic</span>
         </Link>
       </header>
