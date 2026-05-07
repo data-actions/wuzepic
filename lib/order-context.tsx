@@ -2,22 +2,48 @@
 
 import { createContext, useContext, useState, ReactNode } from 'react'
 
-export type FrameStyle = 'classic-black' | 'natural-oak' | 'elegant-white' | 'vintage-gold' | 'modern-walnut'
+export type FrameSize = 'small' | 'medium' | 'large'
+export type FrameColor = 'classic-black' | 'natural-oak' | 'elegant-white' | 'premium-yellow' | 'premium-blue'
+export type FrameStyle = FrameColor
+
+export interface FrameSizeOption {
+  id: FrameSize
+  name: string
+  dimensions: string
+}
 
 export interface FrameOption {
-  id: FrameStyle
+  id: FrameColor
   name: string
-  description: string
+  category: 'Standard' | 'Premium'
   price: number
   color: string
   borderWidth: number
 }
 
+export const frameSizeOptions: FrameSizeOption[] = [
+  {
+    id: 'small',
+    name: 'Small',
+    dimensions: '8 x 10',
+  },
+  {
+    id: 'medium',
+    name: 'Medium',
+    dimensions: '11 x 14',
+  },
+  {
+    id: 'large',
+    name: 'Large',
+    dimensions: '18 x 22',
+  },
+]
+
 export const frameOptions: FrameOption[] = [
   {
     id: 'classic-black',
     name: 'Classic Black',
-    description: 'Timeless matte black finish',
+    category: 'Standard',
     price: 29.99,
     color: '#1a1a1a',
     borderWidth: 16,
@@ -25,34 +51,34 @@ export const frameOptions: FrameOption[] = [
   {
     id: 'natural-oak',
     name: 'Natural Oak',
-    description: 'Warm natural wood grain',
-    price: 39.99,
+    category: 'Standard',
+    price: 29.99,
     color: '#c4a574',
     borderWidth: 20,
   },
   {
     id: 'elegant-white',
     name: 'Elegant White',
-    description: 'Clean minimalist design',
+    category: 'Standard',
     price: 29.99,
     color: '#f5f5f5',
     borderWidth: 16,
   },
   {
-    id: 'vintage-gold',
-    name: 'Vintage Gold',
-    description: 'Classic ornate gold frame',
+    id: 'premium-yellow',
+    name: 'Premium Yellow',
+    category: 'Premium',
     price: 49.99,
-    color: '#d4af37',
+    color: '#fecf08',
     borderWidth: 24,
   },
   {
-    id: 'modern-walnut',
-    name: 'Modern Walnut',
-    description: 'Rich dark wood finish',
-    price: 44.99,
-    color: '#5d432c',
-    borderWidth: 18,
+    id: 'premium-blue',
+    name: 'Premium Blue',
+    category: 'Premium',
+    price: 49.99,
+    color: '#172651',
+    borderWidth: 24,
   },
 ]
 
@@ -61,9 +87,9 @@ export type PhotoSource = 'personal' | 'official'
 export interface OrderState {
   photos: string[]
   photoSource: PhotoSource
+  selectedFrameSize: FrameSize | null
   selectedFrame: FrameStyle | null
   logoUpload: string | null
-  textLeft: string
   textRight: string
   selectedDate: Date | null
   photoScale: number
@@ -85,9 +111,9 @@ interface OrderContextType {
   addPhoto: (photo: string) => void
   removePhoto: (index: number) => void
   setPhotoSource: (source: PhotoSource) => void
+  setSelectedFrameSize: (size: FrameSize | null) => void
   setSelectedFrame: (frame: FrameStyle | null) => void
   setLogoUpload: (logo: string | null) => void
-  setTextLeft: (text: string) => void
   setTextRight: (text: string) => void
   setSelectedDate: (date: Date | null) => void
   setPhotoScale: (scale: number) => void
@@ -102,9 +128,9 @@ interface OrderContextType {
 const initialOrder: OrderState = {
   photos: [],
   photoSource: 'personal',
+  selectedFrameSize: null,
   selectedFrame: null,
   logoUpload: null,
-  textLeft: '',
   textRight: '',
   selectedDate: null,
   photoScale: 1,
@@ -141,16 +167,16 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setOrder((prev) => ({ ...prev, photoSource: source, photos: [] }))
   }
 
+  const setSelectedFrameSize = (size: FrameSize | null) => {
+    setOrder((prev) => ({ ...prev, selectedFrameSize: size }))
+  }
+
   const setSelectedFrame = (frame: FrameStyle | null) => {
     setOrder((prev) => ({ ...prev, selectedFrame: frame }))
   }
 
   const setLogoUpload = (logo: string | null) => {
     setOrder((prev) => ({ ...prev, logoUpload: logo }))
-  }
-
-  const setTextLeft = (text: string) => {
-    setOrder((prev) => ({ ...prev, textLeft: text }))
   }
 
   const setTextRight = (text: string) => {
@@ -200,9 +226,9 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         addPhoto,
         removePhoto,
         setPhotoSource,
+        setSelectedFrameSize,
         setSelectedFrame,
         setLogoUpload,
-        setTextLeft,
         setTextRight,
         setSelectedDate,
         setPhotoScale,
