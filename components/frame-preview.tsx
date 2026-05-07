@@ -67,7 +67,7 @@ export function FramePreview() {
                 }}
               >
                 {/* Photo Area with thin mat on all sides */}
-                <div className="relative flex-1 overflow-hidden bg-white">
+                <div className="relative flex-1 overflow-hidden bg-white" style={{ flexGrow: 8 }}>
                   <Image
                     src={photo}
                     alt={`Framed photo ${index + 1}`}
