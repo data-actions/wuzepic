@@ -133,10 +133,10 @@ export function FrameCustomization() {
         )}
       </div>
 
-      {/* Right Text Input */}
+      {/* Caption Input */}
       <div className="flex flex-col gap-2">
         <Label htmlFor="text-right" className="text-sm font-medium">
-          Right Text
+          Caption
           {order.textRight.length > 0 && (
             <span className="ml-2 text-xs text-muted-foreground">
               {order.textRight.length}/{MAX_TEXT_LENGTH}
@@ -145,7 +145,7 @@ export function FrameCustomization() {
         </Label>
         <Input
           id="text-right"
-          placeholder="e.g., 2024"
+          placeholder="e.g., My First Game"
           value={order.textRight}
           onChange={(e) => {
             const text = e.target.value.slice(0, MAX_TEXT_LENGTH)
