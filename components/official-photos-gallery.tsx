@@ -8,10 +8,10 @@ import { toast } from 'sonner'
 import { X } from 'lucide-react'
 
 const officialPhotos = [
-  { id: 1, src: '/official-photos/img-1.jpg' },
-  { id: 2, src: '/official-photos/img-2.jpg' },
-  { id: 3, src: '/official-photos/img-3.jpg' },
-  { id: 4, src: '/official-photos/img-4.jpg' },
+  { id: 1, src: '/official-photos/img-1.png' },
+  { id: 2, src: '/official-photos/img-2.png' },
+  { id: 3, src: '/official-photos/img-3.png' },
+  { id: 4, src: '/official-photos/img-4.png' },
 ]
 
 export function OfficialPhotosGallery() {
