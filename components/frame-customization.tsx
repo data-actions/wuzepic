@@ -64,22 +64,6 @@ export function FrameCustomization() {
         </div>
       </div>
 
-      {/* Logo Preview Section */}
-      <div className="flex flex-col gap-3">
-        <Label className="text-base font-semibold text-foreground">Frame Logo</Label>
-        <div className="relative h-24 w-full overflow-hidden rounded-lg bg-muted">
-          <Image
-            src={BANANA_BALL_LOGO}
-            alt="Banana Ball logo"
-            fill
-            className="object-contain"
-          />
-        </div>
-        <p className="text-xs text-muted-foreground">
-          Your frame will feature the iconic Banana Ball logo
-        </p>
-      </div>
-
       {/* Text Messages Section */}
       <div className="flex flex-col gap-3">
         <div className="flex items-center gap-2">
