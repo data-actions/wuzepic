@@ -3,6 +3,7 @@
 import { useOrder, frameOptions } from '@/lib/order-context'
 import Image from 'next/image'
 import { ImageIcon } from 'lucide-react'
+import { format } from 'date-fns'
 
 const BANANA_BALL_LOGO = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BBallStillFrame_01-uOaswpUYKRo4SI4LnJp1Nyd36VnuuI.png'
 
@@ -87,9 +88,9 @@ export function FramePreview() {
                     gridTemplateColumns: '1fr auto 1fr',
                   }}
                 >
-                  {/* Left Text */}
+                  {/* Left Text - Now Date */}
                   <span className="text-left text-[7px] font-semibold text-foreground leading-tight line-clamp-2">
-                    {order.textLeft || ''}
+                    {order.selectedDate ? format(order.selectedDate, "do MMMM yyyy") : ''}
                   </span>
 
                   {/* Logo - Always centered */}

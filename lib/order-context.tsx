@@ -65,6 +65,7 @@ export interface OrderState {
   logoUpload: string | null
   textLeft: string
   textRight: string
+  selectedDate: Date | null
   photoScale: number
   shipping: {
     fullName: string
@@ -88,6 +89,7 @@ interface OrderContextType {
   setLogoUpload: (logo: string | null) => void
   setTextLeft: (text: string) => void
   setTextRight: (text: string) => void
+  setSelectedDate: (date: Date | null) => void
   setPhotoScale: (scale: number) => void
   setShipping: (shipping: OrderState['shipping']) => void
   setGiftWrap: (giftWrap: boolean) => void
@@ -104,6 +106,7 @@ const initialOrder: OrderState = {
   logoUpload: null,
   textLeft: '',
   textRight: '',
+  selectedDate: null,
   photoScale: 1,
   shipping: {
     fullName: '',
@@ -154,6 +157,10 @@ export function OrderProvider({ children }: { children: ReactNode }) {
     setOrder((prev) => ({ ...prev, textRight: text }))
   }
 
+  const setSelectedDate = (date: Date | null) => {
+    setOrder((prev) => ({ ...prev, selectedDate: date }))
+  }
+
   const setPhotoScale = (scale: number) => {
     setOrder((prev) => ({ ...prev, photoScale: scale }))
   }
@@ -197,6 +204,7 @@ export function OrderProvider({ children }: { children: ReactNode }) {
         setLogoUpload,
         setTextLeft,
         setTextRight,
+        setSelectedDate,
         setPhotoScale,
         setShipping,
         setGiftWrap,

@@ -1,17 +1,22 @@
 'use client'
 
-import { useRef } from 'react'
+import { useState } from 'react'
 import { useOrder } from '@/lib/order-context'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Type, ZoomIn } from 'lucide-react'
+import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
+import { Calendar } from '@/components/ui/calendar'
+import { Type, ZoomIn, Calendar as CalendarIcon } from 'lucide-react'
+import { format } from 'date-fns'
 import Image from 'next/image'
 
 const BANANA_BALL_LOGO = 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/BBallStillFrame_01-uOaswpUYKRo4SI4LnJp1Nyd36VnuuI.png'
 const MAX_TEXT_LENGTH = 30
 
 export function FrameCustomization() {
-  const { order, setTextLeft, setTextRight, setPhotoScale } = useOrder()
+  const { order, setSelectedDate, setTextRight, setPhotoScale } = useOrder()
+  const [isDateOpen, setIsDateOpen] = useState(false)
 
   return (
     <div className="flex flex-col gap-6">
@@ -86,27 +91,38 @@ export function FrameCustomization() {
         </p>
       </div>
 
-      {/* Left Text Input */}
+      {/* Date Picker */}
       <div className="flex flex-col gap-2">
-        <Label htmlFor="text-left" className="text-sm font-medium">
-          Left Text
-          {order.textLeft.length > 0 && (
-            <span className="ml-2 text-xs text-muted-foreground">
-              {order.textLeft.length}/{MAX_TEXT_LENGTH}
-            </span>
-          )}
+        <Label className="text-sm font-medium">
+          Date on Frame
         </Label>
-        <Input
-          id="text-left"
-          placeholder="e.g., Player Name"
-          value={order.textLeft}
-          onChange={(e) => {
-            const text = e.target.value.slice(0, MAX_TEXT_LENGTH)
-            setTextLeft(text)
-          }}
-          maxLength={MAX_TEXT_LENGTH}
-          className="rounded-lg"
-        />
+        <Popover open={isDateOpen} onOpenChange={setIsDateOpen}>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className="justify-start text-left font-normal rounded-lg"
+            >
+              <CalendarIcon className="mr-2 h-4 w-4" />
+              {order.selectedDate
+                ? format(order.selectedDate, "do MMMM yyyy")
+                : 'Pick a date'}
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={order.selectedDate || undefined}
+              onSelect={(date) => {
+                setSelectedDate(date || null)
+                setIsDateOpen(false)
+              }}
+              disabled={(date) =>
+                date > new Date() || date < new Date('1900-01-01')
+              }
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
       </div>
 
       {/* Right Text Input */}
@@ -142,7 +158,7 @@ export function FrameCustomization() {
           }}
         >
           <span className="text-left text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
-            {order.textLeft || '—'}
+            {order.selectedDate ? format(order.selectedDate, "do MMMM yyyy") : '—'}
           </span>
           <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden">
             <Image
