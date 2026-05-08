@@ -5,7 +5,8 @@ import { Button } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { FanClubBenefits } from '@/components/fan-club-benefits'
 import Link from 'next/link'
-import { Wand2, CheckCircle2, Loader2, ArrowRight, Crown } from 'lucide-react'
+import Image from 'next/image'
+import { CheckCircle2, Loader2, ArrowRight, Crown } from 'lucide-react'
 
 export default function FanClubPaymentPage() {
   const [isProcessing, setIsProcessing] = useState(false)
@@ -36,17 +37,20 @@ export default function FanClubPaymentPage() {
   }
 
   if (paymentSuccess) {
-    return (
-      <div className="flex min-h-svh flex-col bg-background">
-        {/* Header */}
-        <header className="flex items-center justify-center p-6">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-              <Wand2 className="h-5 w-5 text-primary-foreground" />
-            </div>
-            <span className="text-xl font-semibold text-foreground">WuzEpic</span>
-          </Link>
-        </header>
+  return (
+    <div className="flex min-h-svh flex-col bg-background">
+      {/* Header */}
+      <header className="flex items-center justify-center p-6">
+        <Link href="/" className="flex items-center">
+          <Image 
+            src="/white background logo.jpg" 
+            alt="WuzEpic" 
+            width={40} 
+            height={40}
+            className="h-10 w-10 rounded-xl object-cover"
+          />
+        </Link>
+      </header>
 
         {/* Main Content */}
         <main className="flex flex-1 flex-col items-center justify-center px-6 pb-12">
@@ -98,11 +102,14 @@ export default function FanClubPaymentPage() {
     <div className="flex min-h-svh flex-col bg-background">
       {/* Header */}
       <header className="flex items-center justify-center p-6">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-            <Wand2 className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-xl font-semibold text-foreground">WuzEpic</span>
+        <Link href="/" className="flex items-center">
+          <Image 
+            src="/white background logo.jpg" 
+            alt="WuzEpic" 
+            width={40} 
+            height={40}
+            className="h-10 w-10 rounded-xl object-cover"
+          />
         </Link>
       </header>
 

@@ -35,7 +35,7 @@ export default function HomePage() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
-          <div className="flex items-center gap-2">
+          <div className="flex items-center">
             <Image 
               src="/white background logo.jpg" 
               alt="WuzEpic" 
@@ -43,7 +43,6 @@ export default function HomePage() {
               height={32}
               className="h-8 w-8 rounded-lg object-cover"
             />
-            <span className="font-semibold text-foreground">WuzEpic</span>
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="sm" asChild>
@@ -216,7 +215,7 @@ export default function HomePage() {
       {/* Footer */}
       <footer className="border-t border-border px-4 py-8">
         <div className="mx-auto max-w-lg">
-          <div className="flex items-center justify-center gap-2">
+          <div className="flex items-center justify-center">
             <Image 
               src="/white background logo.jpg" 
               alt="WuzEpic" 
@@ -224,7 +223,6 @@ export default function HomePage() {
               height={24}
               className="h-6 w-6 rounded-md object-cover"
             />
-            <span className="text-sm font-medium text-muted-foreground">WuzEpic</span>
           </div>
           <p className="mt-4 text-center text-xs text-muted-foreground">
             2024 WuzEpic. All rights reserved.
