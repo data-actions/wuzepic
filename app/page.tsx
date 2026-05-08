@@ -39,9 +39,9 @@ export default function HomePage() {
             <Image 
               src="/white background logo.jpg" 
               alt="WuzEpic" 
-              width={64} 
+              width={128} 
               height={32}
-              className="h-8 w-16 rounded-lg object-cover"
+              className="h-8 w-32 rounded-lg object-cover"
             />
           </div>
           <div className="flex items-center gap-2">
@@ -219,9 +219,9 @@ export default function HomePage() {
             <Image 
               src="/white background logo.jpg" 
               alt="WuzEpic" 
-              width={48} 
+              width={96} 
               height={24}
-              className="h-6 w-12 rounded-md object-cover"
+              className="h-6 w-24 rounded-md object-cover"
             />
           </div>
           <p className="mt-4 text-center text-xs text-muted-foreground">

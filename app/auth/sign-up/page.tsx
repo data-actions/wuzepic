@@ -72,9 +72,9 @@ export default function SignUpPage() {
           <Image 
             src="/white background logo.jpg" 
             alt="WuzEpic" 
-            width={80} 
+            width={160} 
             height={40}
-            className="h-10 w-20 rounded-xl object-cover"
+            className="h-10 w-40 rounded-xl object-cover"
           />
         </Link>
       </header>
