@@ -41,15 +41,14 @@ export default function LoginPage() {
     <div className="flex min-h-svh flex-col bg-background">
       {/* Header */}
       <header className="flex items-center justify-center p-6">
-        <Link href="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center">
           <Image 
             src="/white background logo.jpg" 
             alt="WuzEpic" 
-            width={40} 
+            width={160} 
             height={40}
-            className="h-10 w-10 rounded-xl object-cover"
+            className="h-10 w-40 rounded-xl object-cover"
           />
-          <span className="text-xl font-semibold text-foreground">WuzEpic</span>
         </Link>
       </header>
 

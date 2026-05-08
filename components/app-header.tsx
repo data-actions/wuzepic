@@ -30,15 +30,14 @@ export function AppHeader({ userEmail }: AppHeaderProps) {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="mx-auto flex h-14 max-w-lg items-center justify-between px-4">
-        <Link href="/app/dashboard" className="flex items-center gap-2">
+        <Link href="/app/dashboard" className="flex items-center">
           <Image 
             src="/white background logo.jpg" 
             alt="WuzEpic" 
-            width={32} 
+            width={128} 
             height={32}
-            className="h-8 w-8 rounded-lg object-cover"
+            className="h-8 w-32 rounded-lg object-cover"
           />
-          <span className="font-semibold text-foreground">WuzEpic</span>
         </Link>
 
         <DropdownMenu>

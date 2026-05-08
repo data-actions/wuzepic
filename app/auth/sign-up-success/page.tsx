@@ -1,16 +1,20 @@
-import { Wand2, Mail, CheckCircle2 } from 'lucide-react'
+import { Mail, CheckCircle2 } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function SignUpSuccessPage() {
   return (
     <div className="flex min-h-svh flex-col bg-background">
       {/* Header */}
       <header className="flex items-center justify-center p-6">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary">
-            <Wand2 className="h-5 w-5 text-primary-foreground" />
-          </div>
-          <span className="text-xl font-semibold text-foreground">WuzEpic</span>
+        <Link href="/" className="flex items-center">
+          <Image 
+            src="/white background logo.jpg" 
+            alt="WuzEpic" 
+            width={160} 
+            height={40}
+            className="h-10 w-40 rounded-xl object-cover"
+          />
         </Link>
       </header>
 
