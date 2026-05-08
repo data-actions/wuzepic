@@ -34,9 +34,9 @@ export function AppHeader({ userEmail }: AppHeaderProps) {
           <Image 
             src="/white background logo.jpg" 
             alt="WuzEpic" 
-            width={32} 
+            width={64} 
             height={32}
-            className="h-8 w-8 rounded-lg object-cover"
+            className="h-8 w-16 rounded-lg object-cover"
           />
         </Link>
 
