@@ -23,7 +23,7 @@ export function FrameCustomization() {
       <div>
         <h2 className="text-lg font-semibold text-foreground">Customize Your Frame</h2>
         <p className="text-sm text-muted-foreground">
-          Add optional text messages to personalize your frame mat
+          Add optional text messages to personalize your frame matte
         </p>
       </div>
 
