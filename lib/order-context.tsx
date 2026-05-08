@@ -141,7 +141,7 @@ interface OrderContextType {
 const initialOrder: OrderState = {
   photos: [],
   photoSource: 'personal',
-  selectedFrameSize: null,
+  selectedFrameSize: 'medium',
   selectedFrame: null,
   logoUpload: null,
   textRight: '',
