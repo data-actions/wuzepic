@@ -1,6 +1,6 @@
 'use client'
 
-import { useOrder, frameOptions } from '@/lib/order-context'
+import { useOrder, frameOptions, framePricing } from '@/lib/order-context'
 import Image from 'next/image'
 import { Package, Gift, Truck, Crown } from 'lucide-react'
 
@@ -8,7 +8,15 @@ export function OrderSummary() {
   const { order, getTotalPrice } = useOrder()
   
   const selectedFrame = frameOptions.find((f) => f.id === order.selectedFrame)
-  const subtotal = selectedFrame ? selectedFrame.price * order.photos.length : 0
+  
+  // Calculate per-frame price based on size and category
+  let perFramePrice = 0
+  if (selectedFrame && order.selectedFrameSize) {
+    const category = selectedFrame.category === 'Premium' ? 'premium' : 'standard'
+    perFramePrice = framePricing[category][order.selectedFrameSize]
+  }
+  
+  const subtotal = perFramePrice * order.photos.length
   const giftWrapCost = order.giftWrap ? 5.99 : 0
   const fanClubCost = order.fanClubSignup ? 99.0 : 0
   const shipping = 0 // Free shipping
@@ -49,7 +57,7 @@ export function OrderSummary() {
                   </p>
                 </div>
                 <span className="font-medium text-foreground">
-                  ${selectedFrame.price.toFixed(2)}
+                  ${perFramePrice.toFixed(2)}
                 </span>
               </div>
             ))}

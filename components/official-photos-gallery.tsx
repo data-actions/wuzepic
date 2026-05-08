@@ -8,14 +8,10 @@ import { toast } from 'sonner'
 import { X } from 'lucide-react'
 
 const officialPhotos = [
-  { id: 1, src: '/official-photos/gaming-arena-1.jpg', label: 'Gaming Arena' },
-  { id: 2, src: '/official-photos/gaming-arena-2.jpg', label: 'Tournament Stage' },
-  { id: 3, src: '/official-photos/gaming-character-1.jpg', label: 'Fantasy Warrior' },
-  { id: 4, src: '/official-photos/gaming-character-2.jpg', label: 'Cyberpunk Hero' },
-  { id: 5, src: '/official-photos/gaming-moment-1.jpg', label: 'Action Scene' },
-  { id: 6, src: '/official-photos/gaming-moment-2.jpg', label: 'Epic Battle' },
-  { id: 7, src: '/official-photos/gaming-setup-1.jpg', label: 'Pro Setup' },
-  { id: 8, src: '/official-photos/gaming-world-1.jpg', label: 'Fantasy World' },
+  { id: 1, src: '/official-photos/img-1.png' },
+  { id: 2, src: '/official-photos/img-2.png' },
+  { id: 3, src: '/official-photos/img-3.png' },
+  { id: 4, src: '/official-photos/img-4.png' },
 ]
 
 export function OfficialPhotosGallery() {
@@ -85,11 +81,6 @@ export function OfficialPhotosGallery() {
                   className="h-5 w-5 cursor-pointer border-2 border-white bg-transparent"
                   aria-label={isSelected ? 'Remove photo' : 'Select photo'}
                 />
-              </div>
-
-              {/* Label */}
-              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-2">
-                <p className="text-xs font-medium text-white">{photo.label}</p>
               </div>
             </div>
           )

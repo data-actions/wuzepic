@@ -31,7 +31,7 @@ export default function AppPage() {
 
   const canProceedFromStep1 = order.photos.length > 0
   const canProceedFromStep2 = true // Logo is now fixed, no upload needed
-  const canProceedFromStep3 = order.selectedFrame !== null
+  const canProceedFromStep3 = order.selectedFrame !== null && order.selectedFrameSize !== null
   const canProceedFromStep4 = 
     order.shipping.fullName.trim() !== '' &&
     order.shipping.address.trim() !== '' &&
@@ -141,8 +141,8 @@ export default function AppPage() {
                 (currentStep === 3 && !canProceedFromStep3)
               }
             >
-              {currentStep === 3 && selectedFrame && (
-                <span className="mr-2">${selectedFrame.price.toFixed(2)}</span>
+              {currentStep === 3 && order.selectedFrameSize && order.selectedFrame && (
+                <span className="mr-2">${getTotalPrice().toFixed(2)}</span>
               )}
               Continue
               <ArrowRight className="ml-2 h-4 w-4" />

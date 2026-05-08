@@ -1,69 +1,163 @@
 'use client'
 
-import { useOrder, frameOptions, type FrameStyle } from '@/lib/order-context'
+import { useOrder, frameOptions, frameSizeOptions, framePricing, type FrameStyle } from '@/lib/order-context'
 import { Check } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 export function FrameSelector() {
-  const { order, setSelectedFrame } = useOrder()
+  const { order, setSelectedFrameSize, setSelectedFrame } = useOrder()
+
+  // Group frames by category
+  const standardFrames = frameOptions.filter((f) => f.category === 'Standard')
+  const premiumFrames = frameOptions.filter((f) => f.category === 'Premium')
+
+  // Helper function to get frame price
+  const getFramePrice = (category: 'Standard' | 'Premium'): string => {
+    if (!order.selectedFrameSize) return 'TBD'
+    const categoryKey = category === 'Premium' ? 'premium' : 'standard'
+    return `$${framePricing[categoryKey][order.selectedFrameSize].toFixed(2)}`
+  }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <div>
         <h2 className="text-lg font-semibold text-foreground">Choose Frame</h2>
         <p className="text-sm text-muted-foreground">
-          Select a frame style for your photos
+          Select a frame size and style for your photos
         </p>
       </div>
 
+      {/* Frame Size Selection */}
       <div className="flex flex-col gap-3">
-        {frameOptions.map((frame) => (
-          <button
-            key={frame.id}
-            onClick={() => setSelectedFrame(frame.id)}
-            className={cn(
-              'flex items-center gap-4 rounded-xl border-2 p-4 text-left transition-all',
-              order.selectedFrame === frame.id
-                ? 'border-primary bg-primary/5'
-                : 'border-border bg-card hover:border-primary/50'
-            )}
-          >
-            {/* Frame Color Preview */}
-            <div
-              className="h-14 w-14 flex-shrink-0 rounded-lg shadow-sm"
-              style={{
-                backgroundColor: frame.color,
-                border: frame.id === 'elegant-white' ? '1px solid #e5e5e5' : 'none',
-              }}
-            />
-
-            {/* Frame Info */}
-            <div className="flex-1">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold text-foreground">{frame.name}</h3>
-                <span className="font-semibold text-primary">
-                  ${frame.price.toFixed(2)}
-                </span>
-              </div>
-              <p className="text-sm text-muted-foreground">{frame.description}</p>
-            </div>
-
-            {/* Selection Indicator */}
-            <div
+        <Label className="text-base font-semibold text-foreground">Frame Size</Label>
+        <div className="grid grid-cols-3 gap-3">
+          {frameSizeOptions.map((size) => (
+            <button
+              key={size.id}
+              onClick={() => setSelectedFrameSize(size.id)}
               className={cn(
-                'flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border-2 transition-all',
-                order.selectedFrame === frame.id
-                  ? 'border-primary bg-primary'
-                  : 'border-muted-foreground/30'
+                'flex flex-col items-center rounded-lg border-2 p-3 text-center transition-all',
+                order.selectedFrameSize === size.id
+                  ? 'border-primary bg-primary/5'
+                  : 'border-border bg-card hover:border-primary/50'
               )}
             >
-              {order.selectedFrame === frame.id && (
-                <Check className="h-4 w-4 text-primary-foreground" />
-              )}
-            </div>
-          </button>
-        ))}
+              <span className="font-semibold text-foreground">{size.name}</span>
+              <span className="text-xs text-muted-foreground">{size.dimensions}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Frame Color Selection */}
+      <div className="flex flex-col gap-4">
+        <Label className="text-base font-semibold text-foreground">Frame Color</Label>
+
+        {/* Standard Frames */}
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+            Standard - {getFramePrice('Standard')}
+          </span>
+          <div className="flex flex-col gap-2">
+            {standardFrames.map((frame) => (
+              <button
+                key={frame.id}
+                onClick={() => setSelectedFrame(frame.id)}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg border-2 p-3 text-left transition-all',
+                  order.selectedFrame === frame.id
+                    ? 'border-primary bg-primary/5'
+                    : 'border-border bg-card hover:border-primary/50'
+                )}
+              >
+                {/* Frame Color Preview */}
+                <div
+                  className="h-10 w-10 flex-shrink-0 rounded-md shadow-sm"
+                  style={{
+                    backgroundColor: frame.color,
+                    border: frame.id === 'elegant-white' ? '1px solid #e5e5e5' : 'none',
+                  }}
+                />
+
+                {/* Frame Info */}
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground text-sm">{frame.name}</h3>
+                </div>
+
+                {/* Selection Indicator */}
+                <div
+                  className={cn(
+                    'flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-all',
+                    order.selectedFrame === frame.id
+                      ? 'border-primary bg-primary'
+                      : 'border-muted-foreground/30'
+                  )}
+                >
+                  {order.selectedFrame === frame.id && (
+                    <Check className="h-3 w-3 text-primary-foreground" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* Premium Frames */}
+        <div className="flex flex-col gap-2">
+          <span className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
+            Premium - {getFramePrice('Premium')}
+          </span>
+          <div className="flex flex-col gap-2">
+            {premiumFrames.map((frame) => (
+              <button
+                key={frame.id}
+                onClick={() => setSelectedFrame(frame.id)}
+                className={cn(
+                  'flex items-center gap-3 rounded-lg border-2 p-3 text-left transition-all',
+                  order.selectedFrame === frame.id
+                    ? 'border-primary bg-primary/5'
+                    : 'border-border bg-card hover:border-primary/50'
+                )}
+              >
+                {/* Frame Color Preview */}
+                <div
+                  className="h-10 w-10 flex-shrink-0 rounded-md shadow-sm"
+                  style={{
+                    backgroundColor: frame.color,
+                  }}
+                />
+
+                {/* Frame Info */}
+                <div className="flex-1">
+                  <h3 className="font-semibold text-foreground text-sm">{frame.name}</h3>
+                </div>
+
+                {/* Selection Indicator */}
+                <div
+                  className={cn(
+                    'flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full border-2 transition-all',
+                    order.selectedFrame === frame.id
+                      ? 'border-primary bg-primary'
+                      : 'border-muted-foreground/30'
+                  )}
+                >
+                  {order.selectedFrame === frame.id && (
+                    <Check className="h-3 w-3 text-primary-foreground" />
+                  )}
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
+  )
+}
+
+function Label({ children, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return (
+    <label {...props} className="text-sm font-medium">
+      {children}
+    </label>
   )
 }
