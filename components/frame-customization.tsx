@@ -144,7 +144,7 @@ export function FrameCustomization() {
           <span className="text-left text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
             {order.selectedDate ? format(order.selectedDate, "do MMMM yyyy") : '—'}
           </span>
-          <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden">
+          <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden">
             <Image
               src={BANANA_BALL_LOGO}
               alt="Banana Ball logo preview"
