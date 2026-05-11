@@ -136,7 +136,7 @@ export function FrameCustomization() {
       <div className="mt-4 rounded-lg border border-border bg-muted/50 p-4">
         <p className="mb-3 text-sm font-medium text-foreground">Matte Preview</p>
         <div 
-          className="grid items-center rounded-lg bg-background px-6 py-8"
+          className="grid items-center rounded-lg bg-background px-6 py-2"
           style={{
             gridTemplateColumns: '1fr auto 1fr',
           }}
@@ -144,7 +144,7 @@ export function FrameCustomization() {
           <span className="text-left text-sm font-semibold text-foreground leading-relaxed line-clamp-2">
             {order.selectedDate ? format(order.selectedDate, "do MMMM yyyy") : '—'}
           </span>
-          <div className="relative h-14 w-14 flex-shrink-0 overflow-hidden">
+          <div className="relative h-15 w-15 flex-shrink-0 overflow-hidden">
             <Image
               src={BANANA_BALL_LOGO}
               alt="Banana Ball logo preview"

@@ -83,7 +83,7 @@ export function FramePreview() {
 
                 {/* Mat Bottom Section with Logo and Text - Using CSS Grid */}
                 <div 
-                  className="grid auto-cols-fr items-center gap-1 bg-white px-2 py-3 flex-shrink-0"
+                  className="grid auto-cols-fr items-center gap-1 bg-white px-2 py-1 flex-shrink-0"
                   style={{
                     gridTemplateColumns: '1fr auto 1fr',
                   }}
@@ -94,7 +94,7 @@ export function FramePreview() {
                   </span>
 
                   {/* Logo - Always centered */}
-                  <div className="relative h-5 w-5 flex-shrink-0 overflow-hidden">
+                  <div className="relative h-15 w-15 flex-shrink-0 overflow-hidden">
                     <Image
                       src={BANANA_BALL_LOGO}
                       alt="Banana Ball logo"

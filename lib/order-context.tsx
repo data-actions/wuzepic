@@ -28,14 +28,14 @@ export interface FramePricing {
 
 export const framePricing: Record<'standard' | 'premium', FramePricing> = {
   standard: {
-    small: 19.99,
-    medium: 29.99,
-    large: 39.99,
+    small: 29,
+    medium: 49,
+    large: 79,
   },
   premium: {
-    small: 39.99,
-    medium: 49.99,
-    large: 59.99,
+    small: 49,
+    medium: 69,
+    large: 99,
   },
 }
 
