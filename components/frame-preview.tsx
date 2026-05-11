@@ -94,7 +94,7 @@ export function FramePreview() {
                   </span>
 
                   {/* Logo - Always centered */}
-                  <div className="relative h-10 w-10 flex-shrink-0 overflow-hidden">
+                  <div className="relative h-15 w-15 flex-shrink-0 overflow-hidden">
                     <Image
                       src={BANANA_BALL_LOGO}
                       alt="Banana Ball logo"
